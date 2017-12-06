@@ -34,9 +34,9 @@ public class SlicerNode : MonoBehaviour {
     {
         if(transform.position != previousPosition)
         {
+            previousPosition = transform.position;
             SetLatLong();
             SetElevation();
-            previousPosition = transform.position;
         }
     }
 
@@ -55,6 +55,8 @@ public class SlicerNode : MonoBehaviour {
                 elevation = (((mouseray.raycastHitFurtherest(transform.position, Vector3.up).y) * Terrain.activeTerrain.terrainData.heightmapHeight) + (-1) * Terrain.activeTerrain.transform.position.y);
             }
 
+            Elevation = elevation.ToString();
+
             //float[,] data = TerrainUtils.GetHeightmap(Terrain.activeTerrain);
             //Rect BoundingBox = GlobalConfig.BoundingBox;
             //Vector3 WorldPoint = coordsystem.transformToWorld(transform.position);
@@ -70,5 +72,7 @@ public class SlicerNode : MonoBehaviour {
         Vector3 Point = coordsystem.transformToWorld(transform.position);
         Lat.text = Point.z.ToString("#,##0");
         Long.text = Point.x.ToString("#,##0");
+        Longinput = Long.text;
+        Latinput = Lat.text;
     }
 }

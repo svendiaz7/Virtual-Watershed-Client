@@ -679,7 +679,7 @@ public static class ModelRunManager
                             rec.end = tempTime + tempSpan;
                             rec.bbox = modelData.GetBoundingBox();
                             Debug.LogError("GDAL BBOX: " + rec.bbox);
-                            rec.projection = modelData.GetProjection();
+                            rec.projection = modelData.ReturnProjection();
                             rec.numbands = modelData.GetRasterCount();
                             rec.services["file"] = FileName.ToString();
                             ModelRunManager.InsertDataRecord(rec, new List<DataRecord>());
@@ -709,7 +709,7 @@ public static class ModelRunManager
                                 rec.start = tempTime;
                                 rec.end = tempTime + tempSpan;
                                 rec.bbox = rd.GetBoundingBox();
-                                rec.projection = rd.GetProjection();
+                                rec.projection = rd.ReturnProjection();
                                 rec.numbands = rd.GetRasterCount();
                                 rec.services["file"] = str;
                                 ModelRunManager.InsertDataRecord(rec, new List<DataRecord>());

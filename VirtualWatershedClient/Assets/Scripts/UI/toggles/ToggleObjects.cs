@@ -20,7 +20,10 @@ public class ToggleObjects : MonoBehaviour
         // Toggle the active state of the objects
         for(int i = 0; i < togglables.Length; i++)
         {
-            togglables[i].SetActive(!togglables[i].activeSelf);
+            if(togglables[i] != null)
+            {
+                togglables[i].SetActive(!togglables[i].activeSelf);
+            }
         }
 
         objectsOn = !objectsOn;

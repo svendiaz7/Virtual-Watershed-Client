@@ -34,9 +34,9 @@ public class ScenePopulator : MonoBehaviour {
         GlobalConfig.State = "Idaho";
         GlobalConfig.GlobalProjection = 26911;
         GlobalConfig.BoundingBox = new Rect(565889.360f, 4844940.560f, 569986.360f - 565889.360f, 4844940.560f - 4840843.560f);
-        GlobalConfig.Zone = 11;
+        //GlobalConfig.Zone = 11;
         GlobalConfig.terrainImage = Resources.Load<Sprite>("Images/DryCreekSelect");
-        SceneManager.LoadScene(5);
+        SceneManager.LoadScene("DryCreek");
     }
 
     public void LoadReynoldsCreek() {
@@ -45,9 +45,9 @@ public class ScenePopulator : MonoBehaviour {
         GlobalConfig.State = "Idaho";
         GlobalConfig.GlobalProjection = 26911;
         GlobalConfig.BoundingBox = new Rect(512660.020f, 4778377.741f, 523839.382f - 512660.020f, 4778377.741f - 4767198.380f);
-        GlobalConfig.Zone = 11;
+        //GlobalConfig.Zone = 11;
         GlobalConfig.terrainImage = Resources.Load<Sprite>("Images/ReynoldCreekSelect");
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene("ReynoldsCreek");
     }
 
     public void LoadLehmanCreek() {
@@ -56,9 +56,9 @@ public class ScenePopulator : MonoBehaviour {
         GlobalConfig.State = "Nevada";
         GlobalConfig.GlobalProjection = 26911;
         GlobalConfig.BoundingBox = new Rect(731653.41f, 4323643.51f, 741254.90f - 731653.41f, 4323643.51f - 4318466.366f); // 4318741.06f
-        GlobalConfig.Zone = 11;
+        //GlobalConfig.Zone = 11;
         GlobalConfig.terrainImage = Resources.Load<Sprite>("Images/LehmanCreekSelect");
-        SceneManager.LoadScene(4);
+        SceneManager.LoadScene("LehmanCreek");
     }
 
     public void LoadJemezCaynon() {
@@ -67,14 +67,14 @@ public class ScenePopulator : MonoBehaviour {
         GlobalConfig.State = "New Mexico";
         GlobalConfig.GlobalProjection = 26913;
         GlobalConfig.BoundingBox = new Rect(324093.21f, 3987729.00f, 381077.39f - 324093.21f, 3987729.00f - 3935123.25f);
-        GlobalConfig.Zone = 13;
+        //GlobalConfig.Zone = 13;
         GlobalConfig.terrainImage = Resources.Load<Sprite>("Images/JemezSelect");
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene("Jemez");
     }
 
     public void LoadSelect()
     {
         Debug.Log("Load Select Page");
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene("SceneSelect");
     }
 }

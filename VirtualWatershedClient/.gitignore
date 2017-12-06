@@ -218,6 +218,3 @@ UpgradeLog*.htm
 
 # Microsoft Fakes
 FakesAssemblies/
-
-#not ignoring resources images
-!Assets/Resources/Images

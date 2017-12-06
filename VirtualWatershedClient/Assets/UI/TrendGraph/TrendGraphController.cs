@@ -71,6 +71,7 @@ namespace VTL.TrendGraph
             // Get the active variables
             List<string> tempRef = ActiveData.GetCurrentAvtive();
             Rect bb = ActiveData.GetBoundingBox(tempRef[0]);
+            Debug.LogError("TrendGraph: " + bb);
 
             // Set the bounding box to the trendgraph
             WorldTransform tran = new WorldTransform(ActiveData.GetProjection(tempRef[0]));
@@ -88,6 +89,7 @@ namespace VTL.TrendGraph
                 bb = new Rect(point.x, point.y, Math.Abs(point.x - point2.x), Math.Abs(point.y - point2.y));
             }
 
+            Debug.LogError("TrendGraph: " + bb);
             BoundingBox = bb;
             SetUnit(variable);
             Compute();

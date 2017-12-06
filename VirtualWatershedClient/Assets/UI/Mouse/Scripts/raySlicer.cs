@@ -186,8 +186,6 @@ public class raySlicer : MonoBehaviour
 
         //screenMaterial.SetFloat("_Min", min);
         //screenMaterial.SetFloat("_Max", MinMax.max);
-        Debug.LogError(GlobalConfig.TerrainBoundingBox);
-        
 
     }
 
@@ -456,6 +454,5 @@ public class raySlicer : MonoBehaviour
             screenMaterial.SetTexture("_3DTex", clear3d);
             calc_min_max = true;
         }
-
     }
 }

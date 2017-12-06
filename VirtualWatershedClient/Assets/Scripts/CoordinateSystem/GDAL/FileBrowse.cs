@@ -5,7 +5,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System;
-using System.Text.RegularExpressions;
 
 public struct DirectoryStruct
 {
@@ -18,7 +17,7 @@ public struct DirectoryStruct
 public class FileBrowse : MonoBehaviour {
 
     public string CurrentDirectory = "";
-    public string SearchString = ".*nc$";
+
 	// Use this for initialization
 	void Start () {
         CurrentDirectory = "";
@@ -86,28 +85,25 @@ public class FileBrowse : MonoBehaviour {
                 }
             }
 
-            foreach (var i in Directory.GetFiles(CurrentDirectory))
+            foreach (var i in Directory.GetFiles(CurrentDirectory, "*.nc"))
             {
-                if (Regex.Match(i, SearchString).Success)
+                DirectoryStruct temp = new DirectoryStruct();
+                temp.Path = Path.GetFullPath(i);
+                temp.IsDirectory = false;
+                temp.filename = Path.GetFileName(i);
+                temp.dateModified = File.GetLastWriteTime(temp.Path).ToString();
+                float size = (float)new FileInfo(temp.Path).Length / 1024;
+                if (size > 1000)
                 {
-                    DirectoryStruct temp = new DirectoryStruct();
-                    temp.Path = Path.GetFullPath(i);
-                    temp.IsDirectory = false;
-                    temp.filename = Path.GetFileName(i);
-                    temp.dateModified = File.GetLastWriteTime(temp.Path).ToString();
-                    float size = (float)new FileInfo(temp.Path).Length / 1024;
-                    if (size > 1000)
-                    {
-                        size /= 1000;
-                        temp.bytes = size.ToString("F2") + " MB";
-                    }
-                    else
-                    {
-                        temp.bytes = size.ToString("F2") + " KB";
-                    }
-
-                    Contents.Add(temp);
+                    size /= 1000;
+                    temp.bytes = size.ToString("F2") + " MB";
                 }
+                else
+                {
+                    temp.bytes = size.ToString("F2") + " KB";
+                }
+
+                Contents.Add(temp);
             }
         }
         else

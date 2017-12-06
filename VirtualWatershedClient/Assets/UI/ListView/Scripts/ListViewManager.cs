@@ -7,7 +7,7 @@
  * from the NSF Idaho EPSCoR Program and by the National Science Foundation.
  * 
  */
-
+ 
 using UnityEngine;
 using System;
 using System.Collections;
@@ -15,7 +15,7 @@ using System.Collections.Generic;
 
 namespace VTL.ListView
 {
-
+        
     public class ListViewManager : ListViewManagerParent
     {
         public delegate void SelectionChangeAction();
@@ -44,12 +44,15 @@ namespace VTL.ListView
         }
 
         public new void OnSelectionEvent(Guid guid, int index)
-        {
+        {          
             // Run the super
             base.OnSelectionEvent(guid, index);
 
             // Run the action on this item
-            SelectionChangeEvent();
+            if (SelectionChangeEvent != null)
+            {
+                SelectionChangeEvent();
+            }
         }
 
         public void AddRow(object[] fieldData, DataRecord record)
@@ -113,7 +116,7 @@ namespace VTL.ListView
                 }
             }
             return records;
-        }
+        }        
 
         public List<ModelRun> GetSelectedModelRuns()
         {

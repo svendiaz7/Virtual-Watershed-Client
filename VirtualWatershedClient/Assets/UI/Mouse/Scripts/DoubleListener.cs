@@ -9,7 +9,7 @@ public class DoubleListener : MonoBehaviour
     List<System.Guid> GUIDSelected = new List<System.Guid>();
     
     //public event DoTheDouble Doubleness;
-    public DoTheDouble DoAction;
+    public DoTheDouble Doubleness;
     bool doubleDetected = false;
     
 	// Use this for initialization
@@ -36,11 +36,11 @@ public class DoubleListener : MonoBehaviour
 
         foreach(var i in GUIDSelected)
         {
-            if ( LVM.IsSelectedOn(i))
+            if (LVM.IsSelectedOn(i))
             {
-                if (DoAction != null)
+                if (Doubleness != null)
                 {
-                    DoAction(i);
+                    Doubleness(i);
                 }
                 doubleDetected = true;
             }

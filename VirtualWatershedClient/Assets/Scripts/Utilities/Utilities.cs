@@ -238,31 +238,6 @@ public static class Utilities
         min = min2;
     }
 
-    // finds the minimum and maximum values from a heightmap
-    public static void findMinMax(float[] data, ref float min, ref float max)
-    {
-        float min2 = float.MaxValue;
-        for (int i = 0; i < data.GetLength(0); i++)
-        {
-
-            float val = data[i];
-            if (val > max)
-            {
-                max = val;
-            }
-            if (val < min && val != min)//&& min != 0)
-            {
-                min = val;
-            }
-            if (min2 > min && min2 != min)
-            {
-                min2 = min;
-            }
-
-        }
-        min = min2;
-    }
-
     public static float[,] normalizeData(float[,] data)
     {
         // (point - min) / (max-min)
@@ -425,23 +400,23 @@ public static class Utilities
     }
 
     // Bilinear Interpolation -- interpolates height and width to the nearest square power of two.
-    static public float[,] interpolateValues(int dimension, int height, int width, float[,] data)
+    static float[,] interpolateValues(int dimension, int height, int width, float[,] data)
     {
         // Push power of two to one above
-        //++dimension;
+        ++dimension;
 
         float[,] outData = new float[dimension, dimension];
         //print("DIMENSION " + dimension);
         for (int x = 0; x < dimension; x++)
-        {            
+        {
             for (int y = 0; y < dimension; y++)
-            {                
+            {
                 float xVal = ((float)x / (float)dimension) * (height - 1); //(mapHeight-1)*((float)i/(float)(gridWidth))+x;
                 float yVal = ((float)y / (float)dimension) * (width - 1);//(mapWidth-1)*((float)j/(float)(gridHeight))+y;
 
                 //heightSamples[x,y] = (float)(ds.grid[name].data[(int)yVal*mapWidth + (int)xVal]-min)/(float)(max-min);
                 //continue;
-                // Check to make sure xVa
+                // Check to make sure xVa		
                 float xRat = xVal - Mathf.Floor(xVal);
                 float yRat = yVal - Mathf.Floor(yVal);
                 float UL = data[(int)Mathf.Floor(xVal), (int)Mathf.Floor(yVal)];
@@ -452,7 +427,6 @@ public static class Utilities
                 float s1 = Mathf.Lerp(UL, LL, yRat); //UL * (1.0f - yRat) + LL * (yRat);
                 float s2 = Mathf.Lerp(UR, LR, yRat); // UR * (1.0f - yRat) + LR * (yRat);
                 float v = Mathf.Lerp(s1, s2, xRat);// s1 * (1.0f - xRat) + s2 * (xRat);
-                
 
                 if (v < 0)
                 {

@@ -161,30 +161,24 @@ public class RasterDataset
         return dataset.RasterCount;
     }
 
-    public List<float[,]> GetData(int width=0,int height=0)
+    public List<float[,]> GetData()
     {
         List<float[,]> data = new List<float[,]>();
-
-        width = width > 0 ? width : MAX_WIDTH;// Math.Max(dataset.RasterXSize, MAX_WIDTH);
-        height = height > 0 ? height : MAX_HEIGHT;
-        //width = 100;
-        //height = 100;
+        int width = dataset.RasterXSize;
+        int height = dataset.RasterYSize;
+        //width = Math.Min(width, MAX_WIDTH);
+        //height = Math.Min(height, MAX_HEIGHT);
+        width = 100;
+        height = 100;
         width = height = Math.Max(width, height);
+        Debug.LogError(width + " " + height);
         //var Data = new float[dataset.RasterCount*dataset.RasterXSize * dataset.RasterYSize]
         //dataset.ReadRaster(0,0,dataset.RasterXSize,dataset.RasterYSize)
         for (int i = 0; i < dataset.RasterCount; i++)
         {
-
-            //width = dataset.RasterXSize;
-            //height = dataset.RasterYSize;
-
             float[] DataF = new float[width * height];
             float[,] Data = new float[width, height];
             var band = dataset.GetRasterBand(i + 1);
-
-            //int blockx = 0, blocky = 0;
-            //band.GetBlockSize(out blockx, out blocky);
-
             try
             {
                 band.ReadRaster(0, 0, band.XSize, band.YSize, DataF, width, height, 0, 0);
@@ -195,8 +189,7 @@ public class RasterDataset
                 return data;
             }
 
-            // Debug.LogError("RasterDataset: " + width + " " + height);
-
+            
             for (int k = 0; k < width; k++)
             {
                 for (int j = 0; j < height; j++)
@@ -204,13 +197,13 @@ public class RasterDataset
                     Data[k, j] = DataF[(k) * height + height-1-j];
                 }
             }
-            // break;
-            // Debug.LogError("RasterDataset: " + i + "_" + dataset.RasterCount);
+
+
 
             data.Add(Data);
 
         }
-        // Debug.LogError("RasterDataset: " + dataset.RasterCount);
+        Debug.LogError(dataset.RasterCount);
         return data;
     }
 
@@ -278,11 +271,17 @@ public class RasterDataset
             }
         }
 
+        Debug.LogError(dataset.GetProjection());
+        Debug.LogError("BOUNDING BOX: " + minx + " " + maxy);
+        
+        
+       
         sr2.ImportFromEPSG(4326);
 
         OSGeo.OSR.CoordinateTransformation ct = new OSGeo.OSR.CoordinateTransformation(sr1, sr2);
         double[] upperleft = new double[] {minx,maxy};
         double[] lowerright = new double[] {maxx,miny};
+        Debug.LogError(upperleft[0] + " " + upperleft[1]);
         ct.TransformPoint(lowerright); 
         ct.TransformPoint(upperleft);
 
@@ -291,7 +290,7 @@ public class RasterDataset
 
 
     // We are hard coding for WGS 84 or commonly known as EPSG:4326
-    public string GetProjection()
+    public string ReturnProjection()
     {
         OSGeo.OSR.SpatialReference sr2 = new OSGeo.OSR.SpatialReference("");
         sr2.ImportFromEPSG(4326);
